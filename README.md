@@ -17,7 +17,31 @@ All image files are expected to be in nifti format.
 TBD
 
 ## Atlases ##
-TBD
+High-quality T1w and T2w images that have been co-registered within an individual atlas participant. Recommended at least 10 individual atlas participants per age bin. Age bins are organized by gestational age in weeks. The number of bins as well as ages contained in a bin are optional. Age bins must be organized in the following structure:
+
+<!-- AUTO-GENERATED-CONTENT:START (DIRTREE:dir=./&depth=1) -->
+```
+atl_dir/
+├── minage1_maxage1
+    ├── PATIENT01_T1w.nii.gz
+    ├── PATIENT01_T1w_brain.nii.gz
+    ├── PATIENT01_T2w.nii.gz
+    ├── PATIENT01_T2w_brain.nii.gz
+    ├── PATIENT02_T1w.nii.gz
+    ├── PATIENT02_T1w_brain.nii.gz
+    ├── PATIENT02_T2w.nii.gz
+    └── PATIENT02_T2w_brain.nii.gz
+└── minage2_maxage2
+    ├── PATIENT03_T1w.nii.gz
+    ├── PATIENT03_T1w_brain.nii.gz
+    ├── PATIENT03_T2w.nii.gz
+    ├── PATIENT03_T2w_brain.nii.gz
+    ├── PATIENT04_T1w.nii.gz
+    ├── PATIENT04_T1w_brain.nii.gz
+    ├── PATIENT04_T2w.nii.gz
+    └── PATIENT04_T2w_brain.nii.gz
+```
+<!-- AUTO-GENERATED-CONTENT:END -->
 
 ## Running ##
 TBD
