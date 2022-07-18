@@ -22,7 +22,7 @@ High-quality T1w and T2w images that have been co-registered within an individua
 <!-- AUTO-GENERATED-CONTENT:START (DIRTREE:dir=./&depth=1) -->
 ```
 atl_dir/
-├── minage1_maxage1
+├── minage1_maxage1/
     ├── PATIENT01_T1w.nii.gz
     ├── PATIENT01_T1w_brain.nii.gz
     ├── PATIENT01_T2w.nii.gz
@@ -31,7 +31,7 @@ atl_dir/
     ├── PATIENT02_T1w_brain.nii.gz
     ├── PATIENT02_T2w.nii.gz
     └── PATIENT02_T2w_brain.nii.gz
-└── minage2_maxage2
+├── minage2_maxage2/
     ├── PATIENT03_T1w.nii.gz
     ├── PATIENT03_T1w_brain.nii.gz
     ├── PATIENT03_T2w.nii.gz
@@ -40,6 +40,15 @@ atl_dir/
     ├── PATIENT04_T1w_brain.nii.gz
     ├── PATIENT04_T2w.nii.gz
     └── PATIENT04_T2w_brain.nii.gz
+└── minage3_maxage3/
+    ├── PATIENT05_T1w.nii.gz
+    ├── PATIENT05_T1w_brain.nii.gz
+    ├── PATIENT05_T2w.nii.gz
+    ├── PATIENT05_T2w_brain.nii.gz
+    ├── PATIENT06_T1w.nii.gz
+    ├── PATIENT06_T1w_brain.nii.gz
+    ├── PATIENT06_T2w.nii.gz
+    └── PATIENT06_T2w_brain.nii.gz
 ```
 <!-- AUTO-GENERATED-CONTENT:END -->
 
