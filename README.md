@@ -14,7 +14,7 @@ The currrent paper is at https://doi.org/10.1016/j.neuroimage.2022.119091
 All image files are expected to be in nifti format.
 
 ## Configuration File ##
-Sets paths to atlases, scripts, and toolkits. Additional parameters are related to the atlases are included. A template configuration file is included.
+Sets paths to atlases, scripts, and toolkits. Additional parameters related to the atlases are included. A template configuration file is included.
 
 `script_dir` This is the path to these downloaded scripts
 
