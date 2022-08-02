@@ -26,6 +26,8 @@ Sets paths to atlases, scripts, and toolkits. Additional parameters related to t
 
 `atl_ids` These are the participant ids of the atlases. See "Atlases" below for more information.
 
+`bin_idx` These indicate the bin that a participant belongs to based on the corresponding index in `age_bins`.
+
 ## Atlases ##
 High-quality T1w and T2w images that have been co-registered within an individual atlas participant, as well as the skull-stripped versions of these images. Recommended at least 10 individual atlas participants per age bin. Recommended atlas images have been N4 corrected. Age bins are organized by gestational age in weeks. The number of bins as well as ages contained in a bin are optional. Naming conventions for files and age bins must be organized in the following structure:
 
