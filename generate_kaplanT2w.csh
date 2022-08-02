@@ -154,6 +154,26 @@ echo "AGE BIN IS "$weekNum
 echo ""
 
 pushd $workdir
+#################################
+### get atlas ids for age bin ###
+#################################
+if (-e atl_ids.txt) then
+    touch atl_ids.txt
+    @ i = 1
+    foreach sub ( $atl_ids )
+        printf "${sub}\t${bin_idx[$i]}\n" >> atl_ids.txt
+        @ i++
+    end
+    set atl_idxs = `awk '{print $2}' atl_ids.txt | grep $weekNum -n | awk -F":" '{print $1}'`
+    set atl_ids_bin = ()
+    foreach idx ($atl_idxs)
+        set atl_ids_bin = ($atl_ids_bin `head -$idx atl_ids.txt | tail -1 | awk '{print $1}'`)
+    end
+    rm atl_ids.txt
+endif
+
+
+
 ###########################
 ### apply n4 correction ###
 ###########################
@@ -174,7 +194,7 @@ pushd body_reg
 ###########################################
 echo ""
 echo "BODY REGISTRATION..."
-foreach sub ($atl_ids)
+foreach sub ($atl_ids_bin)
     echo "REGISTERING SUBJECT: "$sub
     echo ""
     # perform ANTs registration
@@ -185,7 +205,7 @@ end
 ### fuse body images together ###
 #################################
 set imgs = ""
-foreach sub ($atl_ids)
+foreach sub ($atl_ids_bin)
     # normalize T2s from 0-3000
     set minval = `fslstats ${sub}_T2w_on_${t1w}_init.nii.gz -R | awk '{print $1}'`
     set maxval = `fslstats ${sub}_T2w_on_${t1w}_init.nii.gz -R | awk '{print $2}'`
@@ -227,7 +247,7 @@ if (! -d brain_reg) mkdir brain_reg
 pushd brain_reg
 echo ""
 echo "BRAIN REGISTRATION..."
-foreach sub ($atl_ids)
+foreach sub ($atl_ids_bin)
     echo "REGISTERING SUBJECT: "$sub
     echo "  INTITIAL ANTS REGISTRATION..."
     echo ""
@@ -245,7 +265,7 @@ end
 ### fuse brain images together ###
 ##################################
 set imgs = ""
-foreach sub ($atl_ids)
+foreach sub ($atl_ids_bin)
     # normalize T2s from 0-3000
     set minval = `fslstats ${sub}_T2w_brain_on_${t1w}_brain_final.nii.gz -R | awk '{print $1}'`
     set maxval = `fslstats ${sub}_T2w_brain_on_${t1w}_brain_final.nii.gz -R | awk '{print $2}'`
@@ -291,7 +311,7 @@ pushd hist_match
 echo ""
 echo "PERFORMING HISTOGRAM MATCHING..."
 @ i = 1
-foreach sub ($atl_ids)
+foreach sub ($atl_ids_bin)
     echo "      Matching "$sub"..."
     # perform histogram matching
     ${ANTSPATH}/ImageMath 3 ${t1w}_brain_histmatch_${sub}.nii.gz HistogramMatch $kapT2 $atl_dir/$weekNum/${sub}_T2w_brain.nii.gz 1024 7 1
@@ -306,7 +326,7 @@ foreach sub ($atl_ids)
 end
 
 # create average
-fslmaths ${t1w}_brain_histmatch.nii.gz -div $#atl_ids ${t1w}_brain_histmatch
+fslmaths ${t1w}_brain_histmatch.nii.gz -div $#atl_ids_bin ${t1w}_brain_histmatch
 
 # create normalized image 0-2500
 echo ""
@@ -326,7 +346,7 @@ popd # out of hist_match
 echo ""
 echo "EXTRACTING BODY ONLY..."
 echo ""
-set maskname = `echo $brainmask | cut -d "." -f1`
+set maskname = `echo $brainmask | rev | cut -d "/" -f1 | rev | cut -d "." -f1`
 fslmaths $brainmask -binv $maskname"_inv"
 fslmaths ${t1w}_T2w_JF_body_init.nii.gz -mas ${maskname}_inv ${t1w}_body_only.nii.gz
 
