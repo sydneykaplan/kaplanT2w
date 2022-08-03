@@ -158,19 +158,20 @@ pushd $workdir
 ### get atlas ids for age bin ###
 #################################
 if (-e atl_ids.txt) then
-    touch atl_ids.txt
-    @ i = 1
-    foreach sub ( $atl_ids )
-        printf "${sub}\t${bin_idx[$i]}\n" >> atl_ids.txt
-        @ i++
-    end
-    set atl_idxs = `awk '{print $2}' atl_ids.txt | grep $weekNum -n | awk -F":" '{print $1}'`
-    set atl_ids_bin = ()
-    foreach idx ($atl_idxs)
-        set atl_ids_bin = ($atl_ids_bin `head -$idx atl_ids.txt | tail -1 | awk '{print $1}'`)
-    end
     rm atl_ids.txt
+    touch atl_ids.txt
 endif
+@ i = 1
+foreach sub ( $atl_ids )
+    printf "${sub}\t${bin_idx[$i]}\n" >> atl_ids.txt
+    @ i++
+end
+set atl_idxs = `awk '{print $2}' atl_ids.txt | grep $binNum -n | awk -F":" '{print $1}'`
+set atl_ids_bin = ()
+foreach idx ($atl_idxs)
+    set atl_ids_bin = ($atl_ids_bin `head -$idx atl_ids.txt | tail -1 | awk '{print $1}'`)
+end
+rm atl_ids.txt
 
 
 
